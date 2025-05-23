@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Calculation Hub (Singapore Edition)</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.8.1/lottie.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Electrical Calculation Hub</h1>
+            <nav>
+                <ul>
+                    <li><a href="#wire-cable">Wire/Cable Size</a></li>
+                    <li><a href="#circuit-breaker">Circuit Breaker Size</a></li>
+                    <li><a href="#lighting-design">Lighting Design</a></li>
+                    <li><a href="#fault-calculation">Fault Calculation</a></li>
+                </ul>
+            </nav>
+            <div class="theme-switch">
+                <input type="checkbox" id="darkModeToggle" class="checkbox">
+                <label for="darkModeToggle" class="toggle-label">
+                    <span class="icon sun-icon">☀️</span>
+                    <span class="icon moon-icon">🌙</span>
+                    <div class="ball"></div>
+                </label>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="hero">
+            <h2>Your Go-To for Singapore Electrical Regulations</h2>
+            <p>Accurate calculations for residential, commercial, office, and school applications, based on Singapore's Code of Practice (SS 638 & SS 531).</p>
+        </section>
+
+        <section id="wire-cable" class="calc-section">
+            <h2 class="section-title">Wire/Cable Size Calculation</h2>
+            <p class="description">Determine the appropriate cable size based on load, installation, and voltage drop requirements for Singapore's standards.</p>
+            <div class="calc-card">
+                <h3>Input Parameters</h3>
+                <div class="input-group">
+                    <label for="current">Design Current (IB) in Amperes:</label>
+                    <input type="number" id="current" value="20" placeholder="e.g., 20">
+                </div>
+                <div class="input-group">
+                    <label for="length">Length of Run (meters):</label>
+                    <input type="number" id="length" value="10" placeholder="e.g., 10">
+                </div>
+                <div class="input-group">
+                    <label for="voltage">System Voltage (Volts):</label>
+                    <select id="voltage">
+                        <option value="230">230V (Single Phase)</option>
+                        <option value="400">400V (Three Phase)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="material">Cable Material:</label>
+                    <select id="material">
+                        <option value="copper">Copper</option>
+                        <option value="aluminum">Aluminum</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="vd_percent">Max Voltage Drop (%):</label>
+                    <input type="number" id="vd_percent" value="2.5" step="0.1" placeholder="e.g., 2.5">
+                </div>
+                <button id="calculateWire" class="calc-button">Calculate Wire Size</button>
+                <div class="result-box" id="wireResult">
+                    <h4>Recommended Cable Size:</h4>
+                    <p id="recommendedSize"></p>
+                    <h4>Calculated Voltage Drop:</h4>
+                    <p id="actualVoltageDrop"></p>
+                    <div id="wire-animation-container" style="width:100%; height:150px; background-color: var(--secondary-bg); margin-top: 15px; border-radius: 8px;">
+                        <div class="current-flow-anim"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="circuit-breaker" class="calc-section">
+            <h2 class="section-title">Circuit Breaker Size Calculation</h2>
+            <p class="description">Select the correct circuit breaker rating for your load and cable protection, aligning with SS 638.</p>
+            <div class="calc-card">
+                <h3>Input Parameters</h3>
+                <div class="input-group">
+                    <label for="cbLoadCurrent">Load Current (Amperes):</label>
+                    <input type="number" id="cbLoadCurrent" value="15" placeholder="e.g., 15">
+                </div>
+                <div class="input-group">
+                    <label for="cbCableCapacity">Cable Current Capacity (Amperes):</label>
+                    <input type="number" id="cbCableCapacity" value="25" placeholder="e.g., 25">
+                </div>
+                <button id="calculateCB" class="calc-button">Calculate CB Size</button>
+                <div class="result-box" id="cbResult">
+                    <h4>Recommended Circuit Breaker:</h4>
+                    <p id="recommendedCB"></p>
+                    <div id="cb-animation-container" style="width:100%; height:150px; background-color: var(--secondary-bg); margin-top: 15px; border-radius: 8px;">
+                        <div class="breaker-switch"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lighting-design" class="calc-section">
+            <h2 class="section-title">Lighting Design Calculation</h2>
+            <p class="description">Determine the number of luminaires needed to achieve desired lux levels in various spaces, based on SS 531.</p>
+            <div class="calc-card">
+                <h3>Input Parameters</h3>
+                <div class="input-group">
+                    <label for="roomLength">Room Length (m):</label>
+                    <input type="number" id="roomLength" value="5" placeholder="e.g., 5">
+                </div>
+                <div class="input-group">
+                    <label for="roomWidth">Room Width (m):</label>
+                    <input type="number" id="roomWidth" value="4" placeholder="e.g., 4">
+                </div>
+                <div class="input-group">
+                    <label for="desiredLux">Desired Lux Level (Lux):</label>
+                    <input type="number" id="desiredLux" value="300" placeholder="e.g., 300">
+                </div>
+                <button id="calculateLighting" class="calc-button">Calculate Lighting</button>
+                <div class="result-box" id="lightingResult">
+                    <h4>Number of Luminaires Required:</h4>
+                    <p id="numLuminaires"></p>
+                    <div id="lighting-animation-container" style="width:100%; height:150px; background-color: var(--secondary-bg); margin-top: 15px; border-radius: 8px;">
+                         <div class="room-light-simulation"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="fault-calculation" class="calc-section">
+            <h2 class="section-title">Electrical Fault Calculation</h2>
+            <p class="description">Simplified estimation of fault currents for common scenarios.</p>
+            <div class="calc-card">
+                <h3>Input Parameters</h3>
+                <div class="input-group">
+                    <label for="sourceVoltage">Source Voltage (Volts):</label>
+                    <input type="number" id="sourceVoltage" value="230" placeholder="e.g., 230">
+                </div>
+                <div class="input-group">
+                    <label for="loopImpedance">Loop Impedance (Ohms):</label>
+                    <input type="number" id="loopImpedance" value="0.2" step="0.01" placeholder="e.g., 0.2">
+                </div>
+                <button id="calculateFault" class="calc-button">Calculate Fault Current</button>
+                <div class="result-box" id="faultResult">
+                    <h4>Estimated Fault Current:</h4>
+                    <p id="estimatedFaultCurrent"></p>
+                    <div id="fault-animation-container" style="width:100%; height:150px; background-color: var(--secondary-bg); margin-top: 15px; border-radius: 8px;">
+                        <div class="fault-surge-anim"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Electrical Calculation Hub. All rights reserved. <br>Disclaimer: Calculations are for estimation purposes only. Always refer to the latest SS 638 and SS 531 for official compliance.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
